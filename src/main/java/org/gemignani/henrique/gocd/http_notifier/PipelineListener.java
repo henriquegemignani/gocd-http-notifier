@@ -13,32 +13,37 @@ import com.thoughtworks.go.plugin.api.logging.Logger;
 import com.thoughtworks.go.plugin.api.request.GoPluginApiRequest;
 
 public class PipelineListener {
-    private final PluginConfig pluginConfig;
-    private Logger LOGGER = Logger.getLoggerFor(PipelineListener.class);
+	private final PluginConfig pluginConfig;
+	private Logger LOGGER = Logger.getLoggerFor(PipelineListener.class);
 
-    public PipelineListener(PluginConfig pluginConfig) {
-        this.pluginConfig = pluginConfig;
-    }
+	public PipelineListener(PluginConfig pluginConfig) {
+		this.pluginConfig = pluginConfig;
+	}
 
-    public void notify(GoPluginApiRequest message)
-            throws Exception {
-        LOGGER.info("notify called with request name '" + message.requestName() + "' and requestBody '" + message.requestBody() + "'");
+	public void notify(GoPluginApiRequest message) throws Exception {
+		LOGGER.info("notify called with request name '" + message.requestName() + "' and requestBody '"
+				+ message.requestBody() + "'");
 
-        HttpClient httpclient = HttpClients.createDefault();
+		if (pluginConfig.getUrl() == null) {
+			LOGGER.info("No URL configured!");
+			return;
+		}
 
-        HttpPost request = new HttpPost(pluginConfig.getUrl());
+		HttpClient httpclient = HttpClients.createDefault();
 
-        HttpEntity entity = EntityBuilder.create()
-                .setText(message.requestBody())
-                .setContentEncoding("UTF-8")
-                .setContentType(ContentType.APPLICATION_JSON)
-                .build();
-        request.setEntity(entity);
+		HttpPost request = new HttpPost(pluginConfig.getUrl());
 
-        //Execute and get the response.
-        HttpResponse response = httpclient.execute(request);
-        if (response.getStatusLine().getStatusCode() != HttpStatus.SC_OK) {
-        	throw new Exception("Got not-OK status code response: " + response.getStatusLine());
-        }
-    }
+		HttpEntity entity = EntityBuilder.create()
+				.setText(message.requestBody())
+				.setContentEncoding("UTF-8")
+				.setContentType(ContentType.APPLICATION_JSON)
+				.build();
+		request.setEntity(entity);
+
+		// Execute and get the response.
+		HttpResponse response = httpclient.execute(request);
+		if (response.getStatusLine().getStatusCode() != HttpStatus.SC_OK) {
+			throw new Exception("Got not-OK status code response: " + response.getStatusLine());
+		}
+	}
 }
