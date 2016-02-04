@@ -48,18 +48,18 @@ public class GoNotificationPlugin implements GoPlugin {
 				pluginIdentifier());
 		apiRequest.setRequestBody(requestWithPluginId().toString());
 
-		String configJson = null;
+		PluginConfig pluginConfig = null;
 		try {
-			configJson = goApplicationAccessor.submit(apiRequest).responseBody();
-			LOGGER.info("CONFIG JSON GOT " + configJson);
+			String configJson = goApplicationAccessor.submit(apiRequest).responseBody();
+			pluginConfig = new Gson().fromJson(configJson, PluginConfig.class);
 			
 		} catch (Exception e) {
-			LOGGER.error("failed to get config " + e);
+			LOGGER.error("Exception trying to initialize pluginConfig: " + e);
 		}
-
-		PluginConfig pluginConfig = new Gson().fromJson(configJson, PluginConfig.class);
-
-		pipelineListener = new PipelineListener(pluginConfig);
+		
+		if (pluginConfig != null) {
+			pipelineListener = new PipelineListener(pluginConfig);	
+		}
 	}
 
 	public GoPluginApiResponse handle(GoPluginApiRequest goPluginApiRequest) {
