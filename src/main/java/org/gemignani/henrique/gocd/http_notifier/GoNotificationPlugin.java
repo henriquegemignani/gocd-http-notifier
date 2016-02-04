@@ -26,7 +26,7 @@ public class GoNotificationPlugin
     @Override
     public void initializeGoApplicationAccessor(GoApplicationAccessor goApplicationAccessor) {
         PluginConfig pluginConfig = new PluginConfig();
-        pipelineListener = new PipelineListener();
+        pipelineListener = new PipelineListener(pluginConfig);
     }
 
     @Override

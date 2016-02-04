@@ -33,6 +33,12 @@
             <artifactId>config</artifactId>
             <version>1.2.1</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.5.1</version>
+        </dependency>
         
         <!-- test dependencies -->
         <dependency>
