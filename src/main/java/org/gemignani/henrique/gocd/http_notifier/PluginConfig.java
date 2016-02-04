@@ -1,4 +1,4 @@
-package com.matt_richardson.gocd.websocket_notifier;
+package org.gemignani.henrique.gocd.http_notifier;
 
 import com.thoughtworks.go.plugin.api.logging.Logger;
 import com.typesafe.config.Config;

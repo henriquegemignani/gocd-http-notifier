@@ -1,4 +1,4 @@
-package com.matt_richardson.gocd.websocket_notifier;
+package org.gemignani.henrique.gocd.http_notifier;
 
 import com.google.gson.GsonBuilder;
 import com.thoughtworks.go.plugin.api.GoApplicationAccessor;
@@ -9,7 +9,6 @@ import com.thoughtworks.go.plugin.api.logging.Logger;
 import com.thoughtworks.go.plugin.api.request.GoPluginApiRequest;
 import com.thoughtworks.go.plugin.api.response.GoPluginApiResponse;
 
-import java.net.UnknownHostException;
 import java.util.*;
 
 @Extension
@@ -22,26 +21,12 @@ public class GoNotificationPlugin
     public static final String REQUEST_STAGE_STATUS = "stage-status";
     public static final int SUCCESS_RESPONSE_CODE = 200;
     public static final int INTERNAL_ERROR_RESPONSE_CODE = 500;
-    private static WebSocketPipelineListener pipelineListener;
+    private PipelineListener pipelineListener;
 
     @Override
     public void initializeGoApplicationAccessor(GoApplicationAccessor goApplicationAccessor) {
-        if (pipelineListener == null) {
-            PluginConfig pluginConfig = new PluginConfig();
-            int port = pluginConfig.getPort();
-
-            //org.java_websocket.WebSocketImpl.DEBUG = true;
-            PipelineWebSocketServer s;
-            try {
-                LOGGER.info("Starting WebSocket server started on port: " + port);
-                s = new PipelineWebSocketServer(port);
-                s.start();
-                LOGGER.info("WebSocket server started on port: " + s.getPort());
-                pipelineListener = new WebSocketPipelineListener(s);
-            } catch (UnknownHostException e) {
-                LOGGER.error("Failed to launch WebSocket server on port: " + port, e);
-            }
-        }
+        PluginConfig pluginConfig = new PluginConfig();
+        pipelineListener = new PipelineListener();
     }
 
     @Override

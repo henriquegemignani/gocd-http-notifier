@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<go-plugin id="gocd.websocket.notifier" version="1">
+<go-plugin id="gocd.http.notifier" version="1">
     <about>
-        <name>WebSocket Notification Plugin</name>
+        <name>HTTP Notification Plugin</name>
         <version>0.4</version>
-        <target-go-version>15.1.0</target-go-version>
-        <description>Plugin to send build notifications via websockets to any listener</description>
+        <target-go-version>16.1.0</target-go-version>
+        <description>Plugin to send build notifications via HTTP to a single URL</description>
         <vendor>
-            <name>Matt Richardson</name>
-            <url>https://github.com/matt-richardson/gocd-websocket-notifier</url>
+            <name>Henrique Gemignani</name>
+            <url>https://github.com/henriquegemignani/gocd-http-notifier</url>
         </vendor>
     </about>
 </go-plugin>

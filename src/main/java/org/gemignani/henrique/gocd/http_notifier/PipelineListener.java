@@ -1,15 +1,13 @@
-package com.matt_richardson.gocd.websocket_notifier;
+package org.gemignani.henrique.gocd.http_notifier;
 
 import com.thoughtworks.go.plugin.api.logging.Logger;
 import com.thoughtworks.go.plugin.api.request.GoPluginApiRequest;
 
-public class WebSocketPipelineListener {
+public class PipelineListener {
     private final PipelineDetailsPopulator populator;
-    private PipelineWebSocketServer webSocketServer;
-    private Logger LOGGER = Logger.getLoggerFor(WebSocketPipelineListener.class);
+    private Logger LOGGER = Logger.getLoggerFor(PipelineListener.class);
 
-    public WebSocketPipelineListener(PipelineWebSocketServer webSocketServer) {
-        this.webSocketServer = webSocketServer;
+    public PipelineListener() {
         this.populator = new PipelineDetailsPopulator();
     }
 
@@ -17,6 +15,7 @@ public class WebSocketPipelineListener {
             throws Exception {
         LOGGER.info("notify called with request name '" + message.requestName() + "' and requestBody '" + message.requestBody() + "'");
         String expandedMessage = populator.extendMessageToIncludePipelineDetails(message.requestBody());
-        this.webSocketServer.sendToAll(expandedMessage);
+
+        //this.webSocketServer.sendToAll(expandedMessage);
     }
 }
