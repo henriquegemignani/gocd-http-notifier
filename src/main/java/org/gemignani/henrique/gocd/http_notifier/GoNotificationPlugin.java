@@ -61,7 +61,7 @@ public class GoNotificationPlugin
         return new GoPluginApiResponse() {
             @Override
             public int responseCode() {
-                return 0;
+                return SUCCESS_RESPONSE_CODE;
             }
 
             @Override
@@ -85,7 +85,7 @@ public class GoNotificationPlugin
         return new GoPluginApiResponse() {
             @Override
             public int responseCode() {
-                return 0;
+                return SUCCESS_RESPONSE_CODE;
             }
 
             @Override
@@ -106,7 +106,7 @@ public class GoNotificationPlugin
         return new GoPluginApiResponse() {
             @Override
             public int responseCode() {
-                return 0;
+                return SUCCESS_RESPONSE_CODE;
             }
 
             @Override
