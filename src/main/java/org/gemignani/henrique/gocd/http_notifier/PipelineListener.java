@@ -32,8 +32,16 @@ public class PipelineListener {
         LOGGER.info("notify called with request name '" + message.requestName() + "' and requestBody '" + message.requestBody() + "'");
 //        String expandedMessage = populator.extendMessageToIncludePipelineDetails(message.requestBody());
 
+
+
         HttpClient httpclient = HttpClients.createDefault();
+        LOGGER.info("httpclient: " + httpclient);
+
+        LOGGER.info("pluginConfig: " + pluginConfig);
+        LOGGER.info("pluginConfig.getUrl: " + pluginConfig.getUrl());
+
         HttpPost request = new HttpPost(pluginConfig.getUrl());
+        LOGGER.info("request: " + request);
 
         // Request parameters and other properties.
 //        List<NameValuePair> params = new ArrayList<NameValuePair>(2);
@@ -46,9 +54,11 @@ public class PipelineListener {
                 .setContentEncoding("UTF-8")
                 .setContentType(ContentType.APPLICATION_JSON)
                 .build();
+        LOGGER.info("entity: " + entity);
         request.setEntity(entity);
 
         //Execute and get the response.
         HttpResponse response = httpclient.execute(request);
+        LOGGER.info("response: " + response);
     }
 }
